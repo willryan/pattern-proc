@@ -1,4 +1,4 @@
-require 'pattern_proc'
+require 'pattern-proc'
 include PatternProc::TestMethods
 
 class TestObjectClass
