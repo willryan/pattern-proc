@@ -131,7 +131,7 @@ class Object
   def partials(method)
     @__partials ||= {}
     unless @__partials[method] 
-      proc_obj = ComposableProc.new
+      proc_obj = PatternProc.new
       metaclass = class << self; self; end
       metaclass.class_eval do
         define_method(method) do |*args|
