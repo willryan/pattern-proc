@@ -1,6 +1,6 @@
 require 'pattern_proc'
 
-describe PatternProc do
+describe PatternProc::PatternProc do
   subject { described_class.new }
 
   it "simple" do
