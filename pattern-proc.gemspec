@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'pattern-proc'
-  s.version     = '0.0.4'
+  s.version     = '0.0.6'
   s.date        = '2014-07-01'
   s.summary     = 'Pattern Proc'
   s.description = 'define a Proc with pattern matching "re-declaration" ala Haskell'

@@ -1,7 +1,8 @@
 require 'pattern_proc'
+include PatternProc::TestMethods
 
 class TestObjectClass
-  include PatternProc
+  include PatternProc::ClassMethods
   def my_func(a,b,c)
     raise "don't call me"
   end
@@ -12,7 +13,7 @@ end
 
 class TestSingletonClass
   class << self
-    include PatternProc
+    include PatternProc::ClassMethods
     def class_func(a,b,c)
       raise "don't call me"
     end
@@ -22,8 +23,16 @@ class TestSingletonClass
   end
 end
 
+class TestSingletonNoInclude
+  class << self
+    def a_func(a,b,c)
+      raise "don't call me"
+    end
+  end
+end
+
 describe "pattern object methods" do
-  context "class" do
+  context "object" do
     let (:obj) { TestObjectClass.new }
     context "in declaration" do
       it "allows declaration of pattern methods in a class" do
@@ -50,7 +59,7 @@ describe "pattern object methods" do
     end
   end
 
-  context "object" do
+  context "class" do
     let (:klass) { TestSingletonClass }
     context "in declaration" do
       it "allows declaration of pattern class methods in a class" do
@@ -75,6 +84,17 @@ describe "pattern object methods" do
         klass.new_func(:a).(:b).should == :c
         klass.new_func(:d,:e).should == :f
       end
+    end
+  end
+
+  context "for testing" do
+    let (:klass) { TestSingletonNoInclude }
+    it "allows replacing methods on a class" do
+      klass.pattern(:a_func).with(1,2,3).returns(7)
+      klass.pattern(:a_func).with(2,3,4).returns(9)
+
+      klass.a_func(1,2).(3).should == 7
+      klass.a_func(2).(3,4).should == 9
     end
   end
 end
