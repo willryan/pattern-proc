@@ -75,7 +75,7 @@ class PatternProcCase
     @proc = block
     @proc_arity = proc_arity
     @previous_specificity = previous_specificity || 0
-    if block.present? && block.arity > 0
+    if !block.nil? && block.arity > 0
       @proc_arity = block.arity
     end
   end

@@ -1,3 +1,5 @@
+require 'pattern_proc'
+
 describe PatternProc do
   subject { described_class.new }
 
